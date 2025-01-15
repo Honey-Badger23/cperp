@@ -5,26 +5,26 @@
 
 <form id="interest-calculator-form" style="background-color: #0f0f0f; color: #ebfbf9; padding: 20px; border-radius: 8px; width: 300px; margin: auto;">
   <label for="balance" style="display: block; margin-bottom: 10px;">Balance:</label>
-  <input type="number" id="balance" name="balance" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;" min="0">
+  <input type="number" id="balance" name="balance" value="{{ balance }}" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;" min = "0">
   
   <label for="annual_rate" style="display: block; margin-bottom: 10px;">Annual Rate (%):</label>
-  <input type="number" id="annual_rate" name="annual_rate" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;">
+  <input type="number" id="annual_rate" name="annual_rate" value="{{ annual_rate }}" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;" min = "0">
   
   <label for="periods" style="display: block; margin-bottom: 10px;">Periods:</label>
-  <input type="number" id="periods" name="periods" value="1" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;">
+  <input type="number" id="periods" name="periods" value="{{ periods }}" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #22c384;">
   
   <label for="calculation_method" style="display: block; margin-bottom: 10px;">Calculation Method:</label>
   <select id="calculation_method" name="calculation_method" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #22c384;">
-    <option value="monthly">monthly</option>
-    <option value="monthly_compounded">monthly_compounded</option>
-    <option value="daily">daily</option>
-    <option value="daily_compounded">daily_compounded</option>
+    <option value="monthly" {% if calculation_method == 'monthly' %}selected{% endif %}>monthly</option>
+    <option value="monthly_compounded" {% if calculation_method == 'monthly_compounded' %}selected{% endif %}>monthly_compounded</option>
+    <option value="daily" {% if calculation_method == 'daily' %}selected{% endif %}>daily</option>
+    <option value="daily_compounded" {% if calculation_method == 'daily_compounded' %}selected{% endif %}>daily_compounded</option>
   </select>
   
   <button type="button" onclick="calculateInterest()" style="background-color: #22c384; color: #0f0f0f; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Calculate</button>
 </form>
 
-<h3 style="color: #22c384;">Calculated Interest:R <span id="calculated-interest" style="color: #22c384;">00.00</span></h3>
+<h3 style="color: #22c384;">Calculated Interest: R <span id="calculated-interest" style="color: #22c384;">00.00</span></h3>
 
 <script>
   function calculateInterest() {
@@ -37,22 +37,17 @@
       method: "loan_calculator.loan_calculator.doctype.calculate_interest.calculate_interest.calculate_interest",
       args: { balance, annual_rate, periods, calculation_method },
       callback: function(response) {
-        // Debugging: Log the full response to check its structure
         console.log("Full Response: ", response);
 
-        // Check if message is properly formatted and access the value
         if (response.message && response.message.message !== undefined) {
           let interest = response.message.message;
 
-          // Log the type of interest to check if it's a number
           console.log("Interest Type: ", typeof interest);
 
-          // Convert to a number if it's not already a number
           interest = Number(interest);
 
-          // If it's a valid number, format it using toFixed(2)
           if (!isNaN(interest)) {
-            document.getElementById('calculated-interest').innerText = interest.toFixed(2);  // Format to 2 decimal places
+            document.getElementById('calculated-interest').innerText = interest.toFixed(2);
           } else {
             document.getElementById('calculated-interest').innerText = "Invalid interest value.";
           }
