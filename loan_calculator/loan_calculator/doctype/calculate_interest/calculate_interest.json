@@ -72,7 +72,7 @@
   {
    "fieldname": "periods",
    "fieldtype": "Float",
-   "label": "Performa Period"
+   "label": "Proforma Period"
   },
   {
    "fieldname": "calculation_method",
@@ -96,7 +96,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-01-15 08:56:55.053167",
+ "modified": "2025-01-15 10:40:35.505826",
  "modified_by": "Administrator",
  "module": "Loan Calculator",
  "name": "Calculate Interest",
