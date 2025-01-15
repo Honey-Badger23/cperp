@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_guest_to_view": 1,
+ "allow_rename": 1,
+ "creation": "2025-01-14 20:28:27.163911",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "grace_period_days",
+  "interest_rate",
+  "base_rate",
+  "interest_period",
+  "periods",
+  "interest_rule",
+  "interest_base_amount",
+  "calculation_method",
+  "balance",
+  "annual_rate",
+  "interest",
+  "route",
+  "published"
+ ],
+ "fields": [
+  {
+   "fieldname": "balance",
+   "fieldtype": "Float",
+   "label": "Balance"
+  },
+  {
+   "fieldname": "annual_rate",
+   "fieldtype": "Float",
+   "label": "Annual rate"
+  },
+  {
+   "fieldname": "interest_rule",
+   "fieldtype": "Select",
+   "label": "Interest Rule",
+   "options": "Simple\nCompound"
+  },
+  {
+   "fieldname": "interest_period",
+   "fieldtype": "Select",
+   "label": "Interest Period",
+   "options": "Daily\nMonthly\nYearly"
+  },
+  {
+   "fieldname": "grace_period_days",
+   "fieldtype": "Duration",
+   "label": "Grace Period"
+  },
+  {
+   "fieldname": "interest_rate",
+   "fieldtype": "Float",
+   "label": "Interest Rate"
+  },
+  {
+   "fieldname": "interest_base_amount",
+   "fieldtype": "Data",
+   "label": "Interest Base Amount"
+  },
+  {
+   "fieldname": "base_rate",
+   "fieldtype": "Float",
+   "label": "Base Rate"
+  },
+  {
+   "fieldname": "interest",
+   "fieldtype": "Float",
+   "label": "Interest"
+  },
+  {
+   "fieldname": "periods",
+   "fieldtype": "Data",
+   "label": "Performa Period"
+  },
+  {
+   "fieldname": "calculation_method",
+   "fieldtype": "Date",
+   "label": "Calculate Day"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
+  }
+ ],
+ "has_web_view": 1,
+ "index_web_pages_for_search": 1,
+ "is_published_field": "published",
+ "links": [],
+ "modified": "2025-01-14 21:21:15.698528",
+ "modified_by": "Administrator",
+ "module": "Loan Calculator",
+ "name": "Calculate Interest",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "route": "interest",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,58 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>Loan Interest Calculator</h1>
+
+<form id="interest-calculator-form">
+  <label for="balance">Balance:</label>
+  <input type="number" id="balance" name="balance" required>
+  <br>
+
+  <label for="annual_rate">Annual Rate (%):</label>
+  <input type="number" id="annual_rate" name="annual_rate" required>
+  <br>
+
+  <label for="periods">Periods:</label>
+  <input type="number" id="periods" name="periods" value="1">
+  <br>
+
+  <label for="calculation_method">Calculation Method:</label>
+  <select id="calculation_method" name="calculation_method">
+    <option value="monthly">Monthly</option>
+    <option value="monthly_compounded">Monthly Compounded</option>
+    <option value="daily">Daily</option>
+    <option value="daily_compounded">Daily Compounded</option>
+  </select>
+  <br><br>
+
+  <button type="button" onclick="calculateInterest()">Calculate</button>
+</form>
+
+<h3>Calculated Interest: <span id="calculated-interest">--</span></h3>
+
+<script>
+    function calculateInterest() {
+      const balance = document.getElementById('balance').value;
+      const annual_rate = document.getElementById('annual_rate').value;
+      const periods = document.getElementById('periods').value || 1;
+      const calculation_method = document.getElementById('calculation_method').value;
+  
+      frappe.call({
+        method: "loan_calculator.loan_calculator.doctype.calculate_interest.calculate_interest.calculate_interest",
+        args: { balance, annual_rate, periods, calculation_method },
+        callback: function (response) {
+          // Debugging: Log the entire response to see what it contains
+          console.log(response);
+  
+          // Access the nested 'message' inside the response object
+          const interest = response.message.message !== undefined ? response.message.message : "Error";
+  
+          // Update the HTML element with the calculated interest
+          document.getElementById('calculated-interest').innerText = interest;
+        }
+      });
+    }
+  </script>
+  
+  
+{% endblock %}
