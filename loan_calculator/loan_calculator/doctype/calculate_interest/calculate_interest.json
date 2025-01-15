@@ -2,6 +2,7 @@
  "actions": [],
  "allow_guest_to_view": 1,
  "allow_rename": 1,
+ "autoname": "CP.#####",
  "creation": "2025-01-14 20:28:27.163911",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -70,13 +71,14 @@
   },
   {
    "fieldname": "periods",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Performa Period"
   },
   {
    "fieldname": "calculation_method",
-   "fieldtype": "Date",
-   "label": "Calculate Day"
+   "fieldtype": "Select",
+   "label": "Calculation Method",
+   "options": "daily\ndaily_compounded\nmonthly\nmonthly_compounded"
   },
   {
    "fieldname": "route",
@@ -94,10 +96,11 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-01-14 21:21:15.698528",
+ "modified": "2025-01-15 08:56:55.053167",
  "modified_by": "Administrator",
  "module": "Loan Calculator",
  "name": "Calculate Interest",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

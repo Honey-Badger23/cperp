@@ -18,10 +18,10 @@
 
   <label for="calculation_method">Calculation Method:</label>
   <select id="calculation_method" name="calculation_method">
-    <option value="monthly">Monthly</option>
-    <option value="monthly_compounded">Monthly Compounded</option>
-    <option value="daily">Daily</option>
-    <option value="daily_compounded">Daily Compounded</option>
+    <option value="monthly">monthly</option>
+    <option value="monthly_compounded">monthly_compounded</option>
+    <option value="daily">daily</option>
+    <option value="daily_compounded">daily_compounded</option>
   </select>
   <br><br>
 
@@ -31,28 +31,44 @@
 <h3>Calculated Interest: <span id="calculated-interest">--</span></h3>
 
 <script>
-    function calculateInterest() {
-      const balance = document.getElementById('balance').value;
-      const annual_rate = document.getElementById('annual_rate').value;
-      const periods = document.getElementById('periods').value || 1;
-      const calculation_method = document.getElementById('calculation_method').value;
-  
-      frappe.call({
-        method: "loan_calculator.loan_calculator.doctype.calculate_interest.calculate_interest.calculate_interest",
-        args: { balance, annual_rate, periods, calculation_method },
-        callback: function (response) {
-          // Debugging: Log the entire response to see what it contains
-          console.log(response);
-  
-          // Access the nested 'message' inside the response object
-          const interest = response.message.message !== undefined ? response.message.message : "Error";
-  
-          // Update the HTML element with the calculated interest
-          document.getElementById('calculated-interest').innerText = interest;
+  function calculateInterest() {
+    const balance = document.getElementById('balance').value;
+    const annual_rate = document.getElementById('annual_rate').value;
+    const periods = document.getElementById('periods').value || 1;
+    const calculation_method = document.getElementById('calculation_method').value;
+
+    frappe.call({
+      method: "loan_calculator.loan_calculator.doctype.calculate_interest.calculate_interest.calculate_interest",
+      args: { balance, annual_rate, periods, calculation_method },
+      callback: function(response) {
+        // Debugging: Log the full response to check its structure
+        console.log("Full Response: ", response);
+
+        // Check if message is properly formatted and access the value
+        if (response.message && response.message.message !== undefined) {
+          let interest = response.message.message;
+
+          // Log the type of interest to check if it's a number
+          console.log("Interest Type: ", typeof interest);
+
+          // Convert to a number if it's not already a number
+          interest = Number(interest);
+
+          // If it's a valid number, format it using toFixed(2)
+          if (!isNaN(interest)) {
+            document.getElementById('calculated-interest').innerText = interest.toFixed(2);  // Format to 2 decimal places
+          } else {
+            document.getElementById('calculated-interest').innerText = "Invalid interest value.";
+          }
+        } else {
+          console.error("Error: No interest data found in response.");
+          document.getElementById('calculated-interest').innerText = "Error calculating interest.";
         }
-      });
-    }
-  </script>
-  
-  
+      }
+    });
+  }
+</script>
+
+
+
 {% endblock %}
