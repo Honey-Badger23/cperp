@@ -1,4 +1,21 @@
-<div>
-	<a href="/{{ doc.route |e }}">{{ (doc.title or doc.name) |e }}</a>
-</div>
-<!-- this is a sample default list template -->
+<div style="background-color: #0f0f0f; padding: 20px; border-radius: 8px; max-width: 600px; margin: 20px auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+	<a href="#" 
+	   style="
+		 display: block; 
+		 color: #22c384; 
+		 text-decoration: none; 
+		 font-size: 1.2em; 
+		 font-weight: 600; 
+		 padding: 15px 20px; 
+		 border: 1px solid #22c384; 
+		 border-radius: 6px; 
+		 margin-bottom: 10px; 
+		 transition: background-color 0.3s ease, color 0.3s ease;
+	   " 
+	   onmouseover="this.style.backgroundColor='#22c384'; this.style.color='#0f0f0f';" 
+	   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#22c384';">
+	   {{ (doc.title or doc.name or 'Untitled Document') |e }}
+
+	</a>
+  </div>
+  
